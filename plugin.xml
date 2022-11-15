@@ -37,6 +37,7 @@
 
        <config-file target="AndroidManifest.xml" parent="/manifest/application">
           <meta-data android:name="io.sentry.auto-init" android:value="false" />
+          <meta-data android:name="io.sentry.breadcrumbs.system-events" android:value="false" />
       </config-file>
 
 
