@@ -1,10 +1,8 @@
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Cordova = void 0;
-var core_1 = require("@sentry/core");
-var normalize_1 = require("../normalize");
+import { addGlobalEventProcessor, getCurrentHub } from '@sentry/core';
+import { normalizeData } from '../normalize';
 /** Default Breadcrumbs instrumentations */
-var Cordova = /** @class */ (function () {
-    function Cordova() {
+export class Cordova {
+    constructor() {
         /**
          * @inheritDoc
          */
@@ -13,20 +11,18 @@ var Cordova = /** @class */ (function () {
     /**
      * @inheritDoc
      */
-    Cordova.prototype.setupOnce = function () {
-        core_1.addGlobalEventProcessor(function (event) {
-            var self = core_1.getCurrentHub().getIntegration(Cordova);
+    setupOnce() {
+        addGlobalEventProcessor((event) => {
+            const self = getCurrentHub().getIntegration(Cordova);
             if (self) {
-                return normalize_1.normalizeData(event);
+                return normalizeData(event);
             }
             return event;
         });
-    };
-    /**
-     * @inheritDoc
-     */
-    Cordova.id = 'Cordova';
-    return Cordova;
-}());
-exports.Cordova = Cordova;
+    }
+}
+/**
+ * @inheritDoc
+ */
+Cordova.id = 'Cordova';
 //# sourceMappingURL=cordova.js.map

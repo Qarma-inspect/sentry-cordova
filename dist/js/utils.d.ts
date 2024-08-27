@@ -1,4 +1,4 @@
-import { Severity } from '@sentry/types';
+import type { SeverityLevel } from '@sentry/types';
 import { CordovaPlatformType } from './types';
 /**
  * Serializes all values of root-level keys into strings.
@@ -15,7 +15,7 @@ export declare const serializeObject: (data: {
  * @param level
  * @returns More widely supported Severity level strings
  */
-export declare const processLevel: (level: Severity) => Severity;
+export declare const processLevel: (level: SeverityLevel) => SeverityLevel;
 /**
  * Gets the platform
  * @returns The current platform the SDK is running on, defaults to Browser if unknown.
