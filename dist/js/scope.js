@@ -1,69 +1,78 @@
-import { Scope } from '@sentry/core';
-import { NATIVE } from './wrapper';
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CordovaScope = void 0;
+var tslib_1 = require("tslib");
+var hub_1 = require("@sentry/hub");
+var wrapper_1 = require("./wrapper");
 /**
  * Extends the scope methods to set scope on the Native SDKs
  */
-export class CordovaScope extends Scope {
-    /**
-     * @inheritDoc
-     */
-    setUser(user) {
-        NATIVE.setUser(user);
-        return super.setUser(user);
+var CordovaScope = /** @class */ (function (_super) {
+    tslib_1.__extends(CordovaScope, _super);
+    function CordovaScope() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @inheritDoc
      */
-    setTag(key, value) {
-        NATIVE.setTag(key, value);
-        return super.setTag(key, value);
-    }
+    CordovaScope.prototype.setUser = function (user) {
+        wrapper_1.NATIVE.setUser(user);
+        return _super.prototype.setUser.call(this, user);
+    };
     /**
      * @inheritDoc
      */
-    setTags(tags) {
+    CordovaScope.prototype.setTag = function (key, value) {
+        wrapper_1.NATIVE.setTag(key, value);
+        return _super.prototype.setTag.call(this, key, value);
+    };
+    /**
+     * @inheritDoc
+     */
+    CordovaScope.prototype.setTags = function (tags) {
         // As native only has setTag, we just loop through each tag key.
-        Object.keys(tags).forEach(key => {
-            NATIVE.setTag(key, tags[key]);
+        Object.keys(tags).forEach(function (key) {
+            wrapper_1.NATIVE.setTag(key, tags[key]);
         });
-        return super.setTags(tags);
-    }
+        return _super.prototype.setTags.call(this, tags);
+    };
     /**
      * @inheritDoc
      */
-    setExtras(extras) {
-        Object.keys(extras).forEach(key => {
-            NATIVE.setExtra(key, extras[key]);
+    CordovaScope.prototype.setExtras = function (extras) {
+        Object.keys(extras).forEach(function (key) {
+            wrapper_1.NATIVE.setExtra(key, extras[key]);
         });
-        return super.setExtras(extras);
-    }
+        return _super.prototype.setExtras.call(this, extras);
+    };
     /**
      * @inheritDoc
      */
-    setExtra(key, extra) {
-        NATIVE.setExtra(key, extra);
-        return super.setExtra(key, extra);
-    }
+    CordovaScope.prototype.setExtra = function (key, extra) {
+        wrapper_1.NATIVE.setExtra(key, extra);
+        return _super.prototype.setExtra.call(this, key, extra);
+    };
     /**
      * @inheritDoc
      */
-    addBreadcrumb(breadcrumb, maxBreadcrumbs) {
-        NATIVE.addBreadcrumb(breadcrumb);
-        return super.addBreadcrumb(breadcrumb, maxBreadcrumbs);
-    }
+    CordovaScope.prototype.addBreadcrumb = function (breadcrumb, maxBreadcrumbs) {
+        wrapper_1.NATIVE.addBreadcrumb(breadcrumb);
+        return _super.prototype.addBreadcrumb.call(this, breadcrumb, maxBreadcrumbs);
+    };
     /**
      * @inheritDoc
      */
-    clearBreadcrumbs() {
-        NATIVE.clearBreadcrumbs();
-        return super.clearBreadcrumbs();
-    }
+    CordovaScope.prototype.clearBreadcrumbs = function () {
+        wrapper_1.NATIVE.clearBreadcrumbs();
+        return _super.prototype.clearBreadcrumbs.call(this);
+    };
     /**
      * @inheritDoc
      */
-    setContext(key, context) {
-        NATIVE.setContext(key, context);
-        return super.setContext(key, context);
-    }
-}
+    CordovaScope.prototype.setContext = function (key, context) {
+        wrapper_1.NATIVE.setContext(key, context);
+        return _super.prototype.setContext.call(this, key, context);
+    };
+    return CordovaScope;
+}(hub_1.Scope));
+exports.CordovaScope = CordovaScope;
 //# sourceMappingURL=scope.js.map

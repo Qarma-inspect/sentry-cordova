@@ -1,8 +1,8 @@
-import type { CordovaOptions } from './options';
+import { CordovaOptions } from './backend';
 /**
  * Inits the SDK
  */
-export declare function init(options: Partial<CordovaOptions>): void;
+export declare function init(_options: Partial<CordovaOptions>): void;
 /**
  * If native client is available it will trigger a native crash.
  * Use this only for testing purposes.

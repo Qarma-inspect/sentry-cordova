@@ -1,6 +1,6 @@
-import type { AttachmentItem, Breadcrumb, ClientReportItem, Envelope, EnvelopeItem, Event, EventItem, SessionItem, SeverityLevel, User, UserFeedbackItem } from '@sentry/types';
+import { Breadcrumb, Event, Response, User } from '@sentry/types';
 import { SentryError } from '@sentry/utils';
-import type { CordovaOptions } from './options';
+import { CordovaOptions } from './backend';
 import { CordovaPlatformType } from './types';
 /**
  * Our internal interface for calling native functions
@@ -19,7 +19,7 @@ export declare const NATIVE: {
      * Sending the event over the bridge to native
      * @param event Event
      */
-    sendEnvelope(envelope: Envelope): Promise<void>;
+    sendEvent(event: Event): Promise<Response>;
     /**
      * Uses exec to call cordova functions
      * @param action name of the action
@@ -64,30 +64,6 @@ export declare const NATIVE: {
         [key: string]: unknown;
     } | null): void;
     /**
-   * Gets the event from envelopeItem and applies the level filter to the selected event.
-   * @param data An envelope item containing the event.
-   * @returns The event from envelopeItem or undefined.
-   */
-    _processItem(item: EnvelopeItem): EnvelopeItem;
-    /**
-     * Gets the event from envelopeItem and applies the level filter to the selected event.
-     * @param data An envelope item containing the event.
-     * @returns The event from envelopeItem or undefined.
-     */
-    _getEvent(envelopeItem: EventItem | AttachmentItem | UserFeedbackItem | SessionItem | ClientReportItem): Event | undefined;
-    /**
-     * Convert js severity level in event.level and event.breadcrumbs to more widely supported levels.
-     * @param event
-     * @returns Event with more widely supported Severity level strings
-     */
-    _processLevels(event: Event): Event;
-    /**
-     * Convert js severity level which has critical and log to more widely supported levels.
-     * @param level
-     * @returns More widely supported Severity level strings
-     */
-    _processLevel(level: SeverityLevel): SeverityLevel;
-    /**
      * Triggers a native crash.
      * Use this only for testing purposes.
      */
@@ -105,11 +81,10 @@ export declare const NATIVE: {
      */
     isNativeScopeSyncAvailable(): boolean;
     _NativeClientError: SentryError;
-    _DisabledNativeError: SentryError;
+    _NativeTransportError: SentryError;
     enableNative: boolean;
     _nativeInitialized: boolean;
     /** true if `getPlatform` has been called */
     _didGetPlatform: boolean;
-    platform: string;
 };
 //# sourceMappingURL=wrapper.d.ts.map

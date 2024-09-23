@@ -1,4 +1,4 @@
-import type { Integration } from '@sentry/types';
+import { Integration } from '@sentry/types';
 /** Default Breadcrumbs instrumentations */
 export declare class Cordova implements Integration {
     /**

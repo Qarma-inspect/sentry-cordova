@@ -6,28 +6,23 @@ if (!newVersion || !newVersion.match(/\d+\.\d+.\d+(?:-\w+(?:\.\w+)?)?/)) {
   process.exit(1);
 }
 
-function ShowModifiedFiles(changedFiles) {
-  const files = changedFiles.map(item => item.file);
-  console.log('Modified files:', files.join(', '));
-}
-
 replace({
-  files: ['./src/js/version.ts'],
+  files: ['./src/ios/SentryCordova.m', './src/js/version.ts'],
   from: /\d+\.\d+.\d+(?:-\w+(?:\.\w+)?)?/g,
   to: newVersion,
 })
   .then(changedFiles => {
-    ShowModifiedFiles(changedFiles);
+    console.log('Modified files:', changedFiles.join(', '));
     return replace({
       files: ['plugin.xml'],
       // from: /id="@sentry\/cordova" version="\d+\.\d+.\d+"/g,
       // to: `id="@sentry/cordova" version="${pjson.version}"`,
-      from: /id="sentry-cordova" version="\d+.\d+.\d+[^"]*"/g,
+      from: /id="sentry-cordova" version="\d+\.\d+.\d+"/g,
       to: `id="sentry-cordova" version="${newVersion}"`,
     });
   })
   .then(changedFiles => {
-    ShowModifiedFiles(changedFiles);
+    console.log('Modified files:', changedFiles.join(', '));
   })
   .catch(error => {
     console.error('Error occurred:', error);
